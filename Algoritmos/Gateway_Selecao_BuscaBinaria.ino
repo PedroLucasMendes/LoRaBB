@@ -406,41 +406,9 @@ void loop() {
   
 
   SetDefaultParam();
-  if(contador > 10){
-    msg_ult = String(getSF())+"/"+String(getBW())+"/"+String(getPT());
-    v_Verifica = verificaParam(vetor_RSSI, vetor_SNR, contador);
+  msg_ult = String(getSF())+"/"+String(getBW())+"/"+String(getPT());
+  v_Verifica = verificaParam(vetor_RSSI, vetor_SNR, contador);
 
-  }else{
-    String msg_volta = "OK_";
-    msg_volta += msg_ult; 
-    radio.transmit(msg_volta);
-    String* valores = Parser(msg_ult);
-    changeParam(valores[0].toInt(),valores[1].toFloat(),valores[2].toInt());
-    Serial.println("TERM_VER");
-    Serial.print("PARM_IDEAIS: ");
-    Serial.println(msg_ult);
-    String valor;
-    startMillis = millis();
-    while(true){
-      currentMillis = millis();
-      int state = radio.receive(valor);
-  
-      if(currentMillis-startMillis >= period){
-        break;
-      }
-      if(state == RADIOLIB_ERR_NONE && str_read.equals("TERM")){
-        //Serial.println("Recebeu TERM");
-        break;
-      }
-      if(state == RADIOLIB_ERR_NONE){
-        startMillis = millis();
-        Serial.println(valor);
-       
-      }
-          
-    }
-    while(true){}
-  }
 
   String param_atual = String(getSF())+"/"+String(getBW())+"/"+String(getPT())+"/";
   
